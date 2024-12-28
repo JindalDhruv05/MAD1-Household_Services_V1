@@ -7,6 +7,7 @@ servicing solutions. It supports three roles:
 The app facilitates seamless interactions, service management, and user monitoring while
 ensuring local machine demonstrations using Flask, Jinja2 templates, SQLite, and Bootstrap
 for development.
+
 **Frameworks and Libraries Used**
 1. Flask: For backend logic and routing.
 2. Jinja2 Templates + Bootstrap: For generating and styling HTML pages.
