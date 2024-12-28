@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Book Service
+{% endblock %}
+{% block content %}
+    <h1 class="mt-5">Book Service</h1>
+    <br>
+    <div class="container">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="service" class="form-label">Date of Request</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+                <label for="remarks" class="form-label">Additional Description</label>
+                <input type="text" class="form-control" id="remarks" name="remarks" required>                    
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus fa-xs fa-fw"></i>    
+                Book
+            </button>
+        </form>
+    </div>
+{% endblock %}

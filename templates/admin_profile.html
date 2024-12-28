@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block content %}
+    <h1>Welcome @{{user.username}}</h1><br>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="card border border-dark" style="width:50rem;">
+            <div class="card-header">
+                <h1 class="mt-2">Profile</h1>
+            </div>
+            <div class="card-body">
+    <form action="" method="POST">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{user.username}}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="cpassword" class="form-label">Current Password</label>
+            <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+        </div>
+        <div class="mb-3">
+            <label for="npassword" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="npassword" name="npassword" required>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update">
+    </form>
+            </div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Professional Registration
+{% endblock %}
+{% block content %}
+<br>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card border border-dark" style="width:50rem;">
+        <div class="card-header">
+<h1 class="mt-2">Register as Professional</h1>
+</div>
+<br>
+<div class="card-body">
+<form method="POST">
+    <div class="mb-3">
+        <h2>Personal Details</h2>
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="mb-3">
+        <label for="confirm_password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+    </div>
+    <div class="mb-3">
+        <label for="fullname" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="fullname" name="fullname" required>
+    </div>
+    <h2 class="form-title">Professional Details</h2>
+    <div class="mb-3">
+        <label for="service" class="form-label">Service</label>
+        <select class="form-select" id="service" name="service_id" required>
+            {% for service in services %}
+                <option value="{{service.id}}">{{service.name}} - Base Price: &#8377;{{service.price}}</option>
+            {% endfor %}
+        </select>
+    <div class="mb-3">
+        <label for="description" class="form-label">Service Description</label>
+        <textarea class="form-control" id="description" name="description" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="pincode" class="form-label">Pincode</label>
+        <input type="number" class="form-control" id="pincode" name="pincode" required>
+    <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="price" name="price" required>
+    </div>
+    <div class="mb-3">
+        <label for="experience" class="form-label">Experience</label>
+        <input type="number" class="form-control" id="experience" name="experience" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+</div></div>
+
+{% endblock %}

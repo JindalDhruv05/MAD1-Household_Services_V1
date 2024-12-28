@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Delete Service
+{% endblock %}
+{% block content %}
+    <h1 class="mt-5">Delete Service</h1>
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="delete" class="form-label">Confirm Deletion?</label>
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                Delete Service
+            </button>
+        </div>
+    </form>
+{% endblock %}

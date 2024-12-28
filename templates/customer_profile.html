@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block content %}
+<br>
+    <h1 style="text-align:center;">Welcome {{user.username}}</h1>
+    <br>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="card border border-dark" style="width:50rem;">
+            <div class="card-header">
+                <h1 class="mt-1">Profile</h2>
+            </div>
+            <div class="card-body">
+    <form action="" method="POST">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{user.username}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullname" name="fullname" value="{{user.fullname}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" id="address" name="address" required>{{user.address}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="pincode">Pincode</label>
+            <input type="number" class="form-control" id="pincode" name="pincode" value="{{user.pincode}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="cpassword" class="form-label">Current Password</label>
+            <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+        </div>
+        <div class="mb-3">
+            <label for="npassword" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="npassword" name="npassword" required>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update">
+    </form>
+</div>
+</div>
+    </div>
+{% endblock %}

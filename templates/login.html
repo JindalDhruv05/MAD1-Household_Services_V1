@@ -3,16 +3,33 @@
     Login
 {% endblock %}
 {% block content %}
-    <h1 class="mt-5">Login</h1>
+<br>
+<br>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card border border-dark" style="width:30rem;">
+        <div class="card-header">
+    <h1 class="mt-2">Login</h1>
+    </div>
+    <div class="card-body">
     <form method="POST">
         <div class="mb-3">
+            <label for="role" class="form-label">Login as</label>
+            <select class="form-select" id="role" name="role" required>
+                <option value="customer">Customer</option>
+                <option value="professional">Professional</option>
+                <option value="admin">Admin</option>
+            </select>
+        <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username">
+            <input type="text" class="form-control" id="username" name="username" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    </div>
+    </div>
+</div>
 {% endblock %}

@@ -3,5 +3,59 @@
     Home
 {% endblock %}
 {% block content %}
-    <h1 class="mt-5">Home</h1>
+    <h1 class="mb-4 mt-3">Available Services</h1>
+    <hr>
+    {% include 'search_bar.html' %}
+            {% for service in services %}
+            <div class="card border-dark my-2">
+                <div class="card-header custom-card-header">
+                    <h4 class="section-title">{{service.name}}</h4>
+                    <p>{{service.description}}</p>
+                </div>
+                <div class="card-body">
+                <div id="professionals">
+                {% for professional in service.professional %}
+                {% if professional.approved and professional.flagged=='Not Flagged' %}
+                {% if (param=='pincode' and professional.service_pincode==query) or param!='pincode' %}
+                    <div class="card border-dark mx-2" style="width:18rem;">
+                        <div class="card-header">
+                            <h5 class="section-title">{{professional.fullname}}</h5>
+                        </div>
+                        <div class="card-body" >
+                            <p class="card-text">{{professional.description}}</p>
+                            <p class="card-text">Service Pincode: {{professional.service_pincode}}</p>
+                            <p class="card-text">Rating: {{professional.rating}}</p>
+                            <p class="card-text">Time: {{service.time}} hours</p>
+                            <p class="card-text">Price: &#8377;{{professional.price}}</p>
+                            {% if 'user_id' in session and session['role']=='customer' %}
+                            <a href="{{url_for('book_service', id=professional.id)}}" class="btn btn-primary">Book</a>
+                            {% else %}
+                            {% if not('user_id' in session) %}
+                            <a href="{{url_for('login')}}" class="btn btn-primary">Login</a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        <!-- </div>
+    </div> -->
+    <br>
+{% endblock %}
+
+{% block style %}
+<style>
+    #professionals{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .custom-card-header{
+        margin:0px;
+    }
+</style>
 {% endblock %}

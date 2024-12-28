@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block title %}
+    View Booking
+{% endblock %}
+{% block content %}
+<h1 class="mt-5">View Review</h1>
+<!--rate the service-->
+<form action="" method="POST">
+    <!--add service and professional name and description-->
+    <!--create only information page for review, no edits-->
+    <div class="mb-3">
+        <label for="rating" class="form-label">Professional Rating</label>
+        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" value="{{review.professional_rating}}" readonly>
+        <label for="cust_rating" class="form-label">Your Rating</label>
+        <input type="number" class="form-control" id="cust_rating" name="cust_rating" min="1" max="5" value="{{review.customer_rating}}" readonly>
+        <label for="review" class="form-label">Review</label>
+        <textarea class="form-control" id="review" name="review" readonly>{{review.remarks}}</textarea>
+    </div>
+
+{% endblock %}

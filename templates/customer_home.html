@@ -1,35 +1,166 @@
 {% extends 'layout.html' %}
 {% block title %}
-    Dashboard
+    Customer Dashboard
 {% endblock %}
 {% block content %}
-    <h1>Welcome {{user.username}}</h1>
-    <a href="{{url_for('logout')}}" class="btn btn-danger">Logout</a>
-    <form action="" method="POST">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{user.username}}">
+    <h1 class="mt-5">Welcome {{user.username}}!!</h1><br>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card border border-dark">
+                    <div class="card-header">
+                        <h2 class="section-title">Current Bookings</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Request Id</th>
+                                    <th>Service</th>
+                                    <th>Time</th>
+                                    <th>Professional</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Rating</th>
+                                    <th>Status</th>
+                                    <th style="width:20%;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for booking in bookings %}
+                                <tr>{% if booking.status != 'Closed' and booking.status!='Rejected' %}
+                                    {%for service in services%}
+                                    {%if booking.service_id == service.id%}
+                                    <td>{{booking.id}}</td>
+                                    <td>{{service.name}}</td>
+                                    <td>{{service.time}} hours</td>
+                                    {%endif%}
+                                    {%endfor%}
+                                    {%for professional in professionals%}
+                                    {%if booking.professional_id == professional.id%}
+                                    <td>{{professional.fullname}}</td>
+                                    <td>{{professional.description}}</td>
+                                    <td>&#8377;{{professional.price}}</td>
+                                    <td>{{professional.rating}}</td>
+                                    {%endif%}
+                                    {%endfor%}
+                                    <td>{{booking.status}}</td>
+                                    <td class="d-flex justify-content-center align-items-center gap-2" style="height:20%">
+                                        <a href="{{url_for('edit_booking', id=booking.id)}}" class="btn btn-primary">Edit</a>
+                                        <a href="{{url_for('complete_booking', id=booking.id)}}" class="btn btn-success">Complete</a>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="fullname" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="fullname" name="fullname" value="{{user.fullname}}">
+        <br>
+
+        <div class="card border border-dark">
+            <div class="card-header">
+                <h2 class="section-title">Rejected Bookings</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Request Id</th>
+                            <th>Service</th>
+                            <th>Time</th>
+                            <th>Professional</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>{% if booking.status == 'Rejected' %}
+                            {%for service in services%}
+                            {%if booking.service_id == service.id%}
+                            <td>{{booking.id}}</td>
+                            <td>{{service.name}}</td>
+                            <td>{{service.time}} hours</td>
+                            {%endif%}
+                            {%endfor%}
+                            {%for professional in professionals%}
+                            {%if booking.professional_id == professional.id%}
+                            <td>{{professional.fullname}}</td>
+                            <td>{{professional.description}}</td>
+                            <td>&#8377;{{professional.price}}</td>
+                            <td>{{professional.rating}}</td>
+                            {%endif%}
+                            {%endfor%}
+                            <td>{{booking.status}}</td>
+                        </tr>{% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <textarea class="form-control" id="address" name="address">{{user.address}}</textarea>
+        <br>
+
+        <div class="card border border-dark">
+            <div class="card-header">
+                <h2 class="section-title">Old Bookings</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Request Id</th>
+                            <th>Service</th>
+                            <th>Time</th>
+                            <th>Professional</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                            <th>Status</th>
+                            <th style="width:20%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>{% if booking.status == 'Closed' %}
+                            {%for service in services%}
+                            {%if booking.service_id == service.id%}
+                            <td>{{booking.id}}</td>
+                            <td>{{service.name}}</td>
+                            <td>{{service.time}} hours</td>
+                            {%endif%}
+                            {%endfor%}
+                            {%for professional in professionals%}
+                            {%if booking.professional_id == professional.id%}
+                            <td>{{professional.fullname}}</td>
+                            <td>{{professional.description}}</td>
+                            <td>&#8377;{{professional.price}}</td>
+                            <td>{{professional.rating}}</td>
+                            {%endif%}
+                            {%endfor%}
+                            <td>{{booking.status}}</td>
+                            <td class="d-flex justify-content-center align-items-center gap-2" style="height:20%">
+                                <a href="{{url_for('view_review',id=booking.id)}}" class="btn btn-primary">View</a>
+                        </tr>{% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="pincode">Pincode</label>
-            <input type="number" class="form-control" id="pincode" name="pincode" value="{{user.pincode}}">
-        </div>
-        <div class="mb-3">
-            <label for="cpassword" class="form-label">Current Password</label>
-            <input type="password" class="form-control" id="cpassword" name="cpassword">
-        </div>
-        <div class="mb-3">
-            <label for="npassword" class="form-label">New Password</label>
-            <input type="password" class="form-control" id="npassword" name="npassword">
-        </div>
-        <input type="submit" class="btn btn-primary" value="Update">
-    </form>
+
+        
+
+    </div>
+{% endblock %}
+
+{% block style %}
+<style>
+    #professionals{
+        display: flex;
+        flex-wrap: wrap;
+    }
+</style>
 {% endblock %}

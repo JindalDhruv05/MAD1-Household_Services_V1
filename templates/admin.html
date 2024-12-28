@@ -1,0 +1,335 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+{% block content %}
+    <h1 class="mt-3" style="text-align:center;">Admin Dashboard</h1>
+    <br>
+    <div class="card border border-black">
+        <div class="card header d-flex justify-content-between align-items-center">
+            <h2 class="section-title mt-2">Summary</h2>
+        </div>
+        <div class="card-body">
+            <div id="flexbox" class="d-flex justify-content-between align-items-center">
+                <div class="card border border-black" style="width:33%;">
+                    <div class="card-body">
+                        <h5 class="card-title">Professionals</h5>
+                        <div>
+                            <canvas id="prof"></canvas>
+                          </div>
+                          
+                          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                          
+                          <script>
+                            const prof = document.getElementById('prof');
+                          
+                            new Chart(prof, {
+                              type: 'pie',
+                              data: {
+                                labels: [
+                                  'Flagged',
+                                  'Approved',
+                                  'Not Approved'
+                                ],
+                                datasets: [{
+                                  label: 'Professionals',
+                                  data: JSON.parse('{{ prof|tojson|safe }}'),
+                                  backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(255, 205, 86)'
+                                  ],
+                                  hoverOffset: 4
+                                }]
+                              },
+                              options: {
+                                scales: {
+                                  y: {
+                                    beginAtZero: true
+                                  }
+                                }
+                              }
+                            });
+                          </script>
+                    </div>
+                </div>
+                <div class="card border border-black" style="width:33%;">
+                    <div class="card-body">
+                        <h5 class="card-title">Customers</h5>
+                        <div>
+                            <canvas id="cust"></canvas>
+                          </div>
+                          
+                          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                          
+                          <script>
+                            const cust = document.getElementById('cust');
+                          
+                            new Chart(cust, {
+                              type: 'pie',
+                              data: {
+                                labels: [
+                                  'Flagged',
+                                  'Not Flagged'
+                                ],
+                                datasets: [{
+                                  label: 'Customers',
+                                  data: JSON.parse('{{ cust|tojson|safe }}'),
+                                  backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(54, 162, 235)'
+                                  ],
+                                  hoverOffset: 4
+                                }]
+                              },
+                              options: {
+                                scales: {
+                                  y: {
+                                    beginAtZero: true
+                                  }
+                                }
+                              }
+                            });
+                          </script>
+                    </div>
+                </div>
+                <div class="card border border-black" style="width:33%;">
+                    <div class="card-body">
+                        <h5 class="card-title">Service Requests</h5>
+                        <div>
+                            <canvas id="req"></canvas>
+                          </div>
+                          
+                          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                          
+                          <script>
+                            const req = document.getElementById('req');
+                          
+                            new Chart(req, {
+                              type: 'pie',
+                              data: {
+                                labels: [
+                                  'Rejected',
+                                  'Completed',
+                                  'Active'
+                                ],
+                                datasets: [{
+                                  label: 'Service Requests',
+                                  data: JSON.parse('{{ requests|tojson|safe }}'),
+                                  backgroundColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(255, 205, 86)'
+                                  ],
+                                  hoverOffset: 4
+                                }]
+                              },
+                              options: {
+                                scales: {
+                                  y: {
+                                    beginAtZero: true
+                                  }
+                                }
+                              }
+                            });
+                          </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+        <div class="card border border-black">
+            <div class="card-header d-flex justify-content-between align-items-center" >
+            <h2 class="section-title mt-2">Services</h2>
+            
+            <a href="{{url_for('add_service')}}" class="btn btn-primary">
+                <i class="fas fa-plus fa-xs fa-fw"></i>    
+                Add Service
+            </a>
+        </div>
+        <div class="card-body">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Service Id</th>
+                    <th>Service Name</th>
+                    <th>Service Description</th>
+                    <th>Service Price</th>
+                    <th>Service Hours</th>
+                    <th style="width:20%">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr>
+                    <td>{{service.id}}</td>
+                    <td>{{service.name}}</td>
+                    <td>{{service.description}}</td>
+                    <td>{{service.price}}</td>
+                    <td>{{service.time}}</td>
+                    <td class="d-flex justify-content-center align-items-center gap-2" style="height:20%">
+                        <a href="{{url_for('edit_service', id=service.id)}}" class="btn btn-warning">
+                            <i class="fas fa-edit fa-xs fa-fw"></i>    
+                            Edit
+                        </a>
+                        <a href="{{url_for('delete_service', id=service.id)}}" class="btn btn-danger">
+                            <i class="fas fa-trash fa-xs fa-fw"></i>    
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+        <br>
+        <div class="card border border-black">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="section-title mt-2">Professionals</h2>
+                
+                <a href="{{url_for('view_professionals')}}" class="btn btn-primary">
+                    <i class="fas fa-plus fa-xs fa-fw"></i>    
+                    View All
+                </a>
+            </div>
+            <div class="card-body">
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Professional Id</th>
+                        <th>Professional Name</th>
+                        <th>Service Id</th>
+                        <th>Experience</th>
+                        <th>Rating</th>
+                        <th>Flag Status</th>
+                        <th style="width:20%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in professionals %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.fullname}}</td>
+                        <td>{{user.service_id}}</td>
+                        <td>{{user.experience}}</td>
+                        <td>{{user.rating}}</td>
+                        <td>{{user.flagged}}</td>
+                        <td class="d-flex justify-content-center align-items-center gap-2" style="height:20%">
+                            <a href="{{url_for('flag_professional', id=user.id)}}" class="btn btn-warning">
+                                <i class="fas fa-flag fa-xs fa-fw"></i> 
+                                Change Flag Status
+                            </a>
+                            <a href="{{url_for('delete_professional', id=user.id)}}" class="btn btn-danger">
+                                <i class="fas fa-trash fa-xs fa-fw"></i>  
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+    <br>
+        <div class="card border border-dark">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="section-title mt-2">Customers</h2>
+                
+                <a href="{{url_for('view_customers')}}" class="btn btn-primary">
+                    <i class="fas fa-plus fa-xs fa-fw"></i>    
+                    View All
+                </a>
+            </div>
+            <div class="card-body">
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Customer Id</th>
+                        <th>Customer Name</th>
+                        <th>Pincode</th>
+                        <th>Rating</th>
+                        <th>Flag Status</th>
+                        <th style="width:20%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in customers %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.fullname}}</td>
+                        <td>{{user.pincode}}</td>
+                        <td>{{user.rating}}</td>
+                        <td>{{user.flagged}}</td>
+                        <td class="d-flex justify-content-center align-items-center gap-2" style="height:20%">
+                            <a href="{{url_for('flag_customer', id=user.id)}}" class="btn btn-warning">
+                                <i class="fas fa-flag fa-xs fa-fw"></i> 
+                                Change Flag Status
+                            </a>
+                            <a href="{{url_for('delete_customer', id=user.id)}}" class="btn btn-danger">
+                                <i class="fas fa-trash fa-xs fa-fw"></i>  
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <br>
+        <div class="card border border-black">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="section-title mt-2">New Recruits</h2>
+            </div>
+            <div class="card-body">
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Professional Id</th>
+                        <th>Professional Name</th>
+                        <th>Service Id</th>
+                        <th>Description</th>
+                        <th>Service Pincode</th>
+                        <th>Experience</th>
+                        <th>Rating</th>
+                        <th style="width:20%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in new_professionals %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.fullname}}</td>
+                        <td>{{user.service_id}}</td>
+                        <td>{{user.description}}</td>
+                        <td>{{user.service_pincode}}</td>
+                        <td>{{user.experience}}</td>
+                        <td>{{user.rating}}</td>
+                        <td>
+                            <a href="{{url_for('approve_professional', id=user.id)}}" class="btn btn-warning">
+                                <i class="fas fa-flag fa-xs fa-fw"></i>
+                                Approve
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <br>
+{% endblock %}
+
+{% block style %}
+<style>
+    #flexbox{
+        display: flex;
+        flex-wrap: wrap;
+    }
+</style>
+{% endblock %}

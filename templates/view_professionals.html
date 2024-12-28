@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% block title %}
+    View Professionals
+{% endblock %}
+{% block content %}
+<h1 class="mt-5">View Professionals</h1>
+<br>
+{% include 'search_professional.html'   %}
+
+<div class="card border border-dark mt-2">
+    <div class="card-header d-flex justify-content-between align-items-center">
+    <h2 class="section-title">Professionals</h2>
+    </div>
+    <div class="card-body">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>Full Name</th>
+                <th>Service Id</th>
+                <th>Description</th>
+                <th>Service Pincode</th>
+                <th>Experience</th>
+                <th>Rating</th>
+                <th>Flag Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in professionals %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.fullname}}</td>
+                <td>{{user.service_id}}</td>
+                <td>{{user.description}}</td>
+                <td>{{user.service_pincode}}</td>
+                <td>{{user.experience}}</td>
+                <td>{{user.rating}}</td>
+                <td>{{user.flagged}}</td>
+                <td>
+                    <a href="{{url_for('flag_professional', id=user.id)}}" class="btn btn-warning">
+                        <i class="fas fa-flag fa-xs fa-fw"></i> 
+                        Change Flag Status
+                    </a>
+                    <a href="{{url_for('delete_professional', id=user.id)}}" class="btn btn-danger">
+                        <i class="fas fa-trash fa-xs fa-fw"></i>  
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

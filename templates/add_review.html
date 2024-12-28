@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Add Review
+{% endblock %}
+{% block content %}
+<div class="card border border-dark">
+    <div class="card-header d-flex justify-content-between align-items-center">
+    <h1 class="mt-5">Add Customer Review</h1>
+    </div>
+<!--rate the service-->
+<div class="card-body">
+<form action="" method="POST">
+    <div class="mb-3">
+        <label for="rating" class="form-label">Customer Rating</label>
+        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+</div>
+</div>
+
+{% endblock %}
