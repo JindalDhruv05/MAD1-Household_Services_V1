@@ -1,4 +1,7 @@
+**Household Services Application**
+
 **Problem Statement**
+
 The application serves as a multi-user platform for providing comprehensive home
 servicing solutions. It supports three roles:
 1. Admin: Manages services and users.
